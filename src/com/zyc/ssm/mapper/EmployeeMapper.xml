@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyc.ssm.mapper.EmployeeMapper">
+	<select id="getEmpList" resultType="com.zyc.ssm.bean.Employee">
+		select e.empid,e.empname,e.depts_emps_id as "department.deptId",d.deptname as "department.deptName"
+		from emps e
+		join depts d
+		on e.depts_emps_id=d.deptid
+	</select>
+	
+	<insert id="saveEmp" >
+		insert into emps(empname,depts_emps_id) values(#{empName},#{department.deptId})
+	</insert>
+	
+	<select id="getEmpById" resultType="com.zyc.ssm.bean.Employee">
+		select e.empid,e.empname,e.depts_emps_id as "department.deptId",d.deptname as "department.deptName"
+		from emps e
+		join depts d
+		on e.depts_emps_id=d.deptid
+		where e.empid=#{empId} 
+	</select>
+	
+	<update id="updateEmp">
+		update emps set empname = #{empName},depts_emps_id=#{department.deptId} where empid=#{empId}
+	</update>
+	
+	<delete id="deleteEmp">
+		delete from emps where empid=#{empId}
+	</delete>
+</mapper>
